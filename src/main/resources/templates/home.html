@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Document</title>
+
+<!-- 自定義 css 引用開始-->
+<link rel="stylesheet" href="css/style.css">
+<!-- 自定義 css 引用結束-->
+
+<!-- JQuery 引用開始-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQuery 引用結束-->
+<!-- Include jQuery Cookie plugin -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<!-- BootStrap 引用開始-->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- BootStrap 引用結束-->
+
+<!-- CSS 引用 -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+
+<!-- JavaScript 引用 -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.min.js"></script>
+<link
+	href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
+	rel="stylesheet">
+</head>
+
+<body>
+	<div id="container">
+		<!-- Header 開始-->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#"> <img
+				src="images/herbal-spa-treatment-leaves.png" width="30" height="30"
+				class="d-inline-block align-top" alt=""> fresh
+			</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link text-primary" href="">關於</a>
+					</li>
+					<li class="nav-item"><a class="nav-link text-primary"
+						href="/products">飲品</a></li>
+					<li class="nav-item" id="preorder"><a
+						class="nav-link text-primary" href="/preorder">訂購</a></li>
+					<li class="nav-item"><a class="nav-link text-primary" href="">支援</a>
+					<li class="nav-item ">
+				</ul>
+
+				<ul class="navbar-nav">
+					<li class=nav-item th:if="${memberPhone}">
+						<p>[[${memberPhone}]]，你好</p>
+					</li>
+					<li class="nav-item" th:if="${memberPhone == null}">
+						<form th:action="@{/member/showForm}" method="get">
+							<button class="btn btn-outline-primary" style="width: 100px;"
+								type="submit">註冊</button>
+						</form>
+					</li>
+					<li class="nav-item" th:if="${memberPhone == null}">
+						<form th:action="@{/member/login}" method="get">
+							<button class="btn btn-primary" style="width: 100px;"
+								type="submit">登入</button>
+						</form>
+					</li>
+					<li>
+						<div class="dropdown" th:id="navbar-drop" th:if="${memberPhone}">
+							<a class="btn dropdown-toggle btn" href="#" role="button"
+								id="dropdownMenuLink" data-bs-toggle="dropdown"
+								data-display="static" aria-expanded="false"
+								style="width: 150px; border-color: #ffffff; background-color: #f5f5f5;">
+								選單 </a>
+
+							<ul class="dropdown-menu dropdown-menu-md-end"
+								aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" id="userindex"
+									th:href="@{/member/UserIndex(member=${member})}">修改會員資料</a></li>
+								<li><a class="dropdown-item" href="/history">歷史訂單查詢</a></li>
+								<li><a class="dropdown-item" href="/cart">購物車</a></li>
+								<li><a class="dropdown-item" href="/logout">登出</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!-- Header 結束-->
+		<!-- 第一區版面 開始-->
+		<div class="container-fluid"
+			style="position: relative; width: 100%; height: 800px; padding-left: 0; padding-right: 0;">
+			<img src="images/manki-kim-L82-kkEBOd0-unsplash.jpg"
+				style="width: 100%; height: 100%; object-fit: cover;">
+			<div
+				style="position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+				<p style="color: white; font-size: 56px; font-weight: bold;">大自然的萃取，只為一口好茶</p>
+			</div>
+			<div
+				style="position: absolute; top: 85%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+				<form id="productForm" th:action="@{/preorder}" method="get">
+					<button class="btn btn-primary" style="width: 140%;" type="submit"
+						id="orderButton">立即訂購</button>
+				</form>
+			</div>
+		</div>
+		<!-- 第一區版面 結束-->
+
+		<!-- 第二區版面 開始-->
+		<div class="container-fluid p-0">
+			<div class="row no-gutters align-items-center"
+				style="background-color: #ffffff">
+				<div class="col-md-6">
+					<div class="container">
+						<img src="images/jia-ye-waTzoTvrFFs-unsplash.jpg"
+							class="img-fluid rounded" alt="your-image-description">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="container">
+						<h2>鮮萃檸檬青</h2>
+						<p>採用嚴選青茶，搭配鮮榨檸檬，完美比例混和出清香好滋味，絕對是炎炎夏日的最佳選擇。</p>
+					</div>
+				</div>
+			</div>
+			<div class="row no-gutters align-items-center"
+				style="background-color: #f5f5f5">
+				<div class="col-md-6">
+					<div class="container">
+						<h2>小農鮮奶茶</h2>
+						<p>產地直送的小農鮮奶，搭配精選紅茶，調製出濃郁奶香與茶香交融的鮮奶茶，每一口都是純淨的自然滋味。</p>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="container">
+						<img src="images/demi-deherrera-L-sm1B4L1Ns-unsplash.jpg"
+							class="img-fluid rounded" alt="your-image-description">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 第二區版面 結束-->
+		<!-- 第三區版面 開始-->
+
+		<div class="container-fluid" style="background-color: #ffffff;">
+			<div class="row" style="height: 150px;">
+				<div class=" third-title col-md-12">
+					<p style="font-size: 48px;">我們保證</p>
+				</div>
+			</div>
+			<div class="card-group">
+				<div class="card">
+					<img src="images/tp022-01.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">嚴選食材</h5>
+						<p class="card-text">選用新鮮水果、優質乳品，為的是讓廣大消費者吃的安心、吃的健康。</p>
+					</div>
+				</div>
+				<div class="card">
+					<img src="images/tp022-02.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">安心保障</h5>
+						<p class="card-text">我們用心與堅持，最新鮮的食材，才能吃的安全放心。</p>
+					</div>
+				</div>
+				<div class="card">
+					<img src="images/tp022-03.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">新鮮口感</h5>
+						<p class="card-text">創新不侷限，杯杯口感層次鮮明大家都能喝到的好茶。</p>
+					</div>
+				</div>
+				<div class="card">
+					<img src="images/tp022-04.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">貼心服務</h5>
+						<p class="card-text">堅持以精緻的品質與親切的服務態度，貼心的服務每位消費者。</p>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="height: 40px;"></div>
+		</div>
+
+		<!-- 第三區版面 結束-->
+		<!-- 第四區版面 開始-->
+		<!-- 第四區版面 結束-->
+		<!--測試版面-->
+		<div class="test container-fluid" style="background-color: #f5f5f5;">
+			<div class="row" style="height: 60px;"></div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-8">
+					<h1 class="text-dark">現在加入即享9折優惠</h1>
+					<p class="lead">立即加入成為會員，即可購買喜愛的飲品，同時還能享有專屬的優惠，開啟美好的購物體驗！</p>
+
+				</div>
+				<div class="col-md-2">
+					<a href="#" class="btn btn-primary">註冊</a>
+				</div>
+			</div>
+			<hr style="border-color: black;" />
+			<div class="row" style="margin-top: 80px; margin-bottom: 40px;">
+				<div class=" third-title col-md-12">
+					<a style="font-size: 28px; font-family: 'Comfortaa', cursive;">
+						<img src="images/herbal-spa-treatment-leaves.png" width="45"
+						height="45" class="d-inline-block align-top" /> fresh
+					</a>
+				</div>
+			</div>
+			<div class="row" style="margin-bottom: 20px;">
+				<div class="third-title col-md-12">
+					<a> <img
+						src="images/vecteezy_set-of-social-media-icon-in-round-bakground_-ai.png"
+						width="315" ;
+                            height="50"
+						class="d-inline-block align-top" /></a>
+				</div>
+			</div>
+			<div class="row" style="height: 60px;">
+				<div class="third-title col-md-12">
+					<a style="font-family: 'Montserrat', sans-serif;"> © Fresh,
+						Inc. 2023. </a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="modal fade" id="loginModal" tabindex="-1"
+		aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="loginModalLabel">提示</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>請先登錄以繼續訂購。</p>
+				</div>
+				<div class="modal-footer">
+
+					<form th:action="@{/member/showForm}" method="get">
+						<button class="btn btn-outline-primary" type="submit">註冊</button>
+					</form>
+					<form th:action="@{/member/login}" method="get">
+						<button class="btn btn-primary" type="submit">登入</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+  $(document).ready(function() {
+    $('#orderButton').click(function(event) {
+      event.preventDefault(); // 防止預設行為
+      
+      // 使用 URLSearchParams 擷取 query string parameters
+      var urlParams = new URLSearchParams(window.location.search);
+      var loggedIn = urlParams.get('loggedIn');
+      
+      if (loggedIn === 'true') {
+        // 如果已登錄，則提交表單
+        $('#productForm').submit();
+      } else {
+        // 如果未登錄，則顯示模態窗口
+        $('#loginModal').modal('show');
+      }
+    });
+    $('#preorder').click(function(event) {
+        event.preventDefault(); // 防止預設行為
+        
+        // 使用 URLSearchParams 擷取 query string parameters
+        var urlParams = new URLSearchParams(window.location.search);
+        var loggedIn = urlParams.get('loggedIn');
+        
+        if (loggedIn === 'true') {
+          // 如果已登錄，則提交表單
+        	window.location.href = 'preorder';
+        } else {
+          // 如果未登錄，則顯示模態窗口
+          $('#loginModal').modal('show');
+        }
+      });
+  });
+</script>
+
+</body>
+
+</html>

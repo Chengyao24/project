@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>訂單更新</title>
+
+     <!--使用bootstrap前端模組管理，必填這4句-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Order Management System</h1>
+        <hr>
+        <h2>Update Order</h2>
+
+        <form action="#" th:action="@{/saveBackPorder}" th:object="${porder}" method="POST">
+
+            <!-- Add hidden form field to handle update -->
+            <input type="hidden" th:field="*{member.memberId}" />
+            <input type="hidden" th:field="*{member.password}" />
+
+            <input type="text" th:field="*{orderId}" class="form-control mb-4 col-4" readonly>
+
+            <input type="text" th:field="*{member.mobile}" class="form-control mb-4 col-4" readonly>
+
+            <input type="text" th:field="*{member.Name}" class="form-control mb-4 col-4" readonly>
+
+            <!--  <input type="text" th:field="*{status}" class="form-control mb-4 col-4"> -->
+            <select class="custom-select mb-4 col-4" th:field="*{status}"	id="roleSelect">
+				<option th:value="已完成" selected>已完成</option>
+				<option th:value="製作中">製作中</option>
+				<option th:value="未完成">未完成</option>
+			</select> 
+			
+			<input type="text" th:field="*{createDate}" class="form-control mb-4 col-4" readonly>
+			
+			<!--  <input type="text" th:field="*{updateDate}" class="form-control mb-4 col-4" readonly> -->
+			
+			<input type="text" th:field="*{sn}" class="form-control mb-4 col-4" readonly>
+			
+			<input type="text" th:field="*{type}" class="form-control mb-4 col-4" readonly>
+			<input type="text" th:field="*{paymoney}" class="form-control mb-4 col-4" readonly>
+            <button type="submit" class="btn btn-info col-2"> Update Product</button>
+        </form>
+
+        <hr>
+		<!-- 
+		<a th:href="@{/pordertList}"> Back to Order List</a>
+		 -->
+        
+    </div>
+</body>
+
+</html>

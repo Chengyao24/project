@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>會員新增</title>  
+    <!--使用bootstrap前端模組管理，必填這4句-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	
+    <div class="container">
+        <h1>Member Management System</h1>
+        <hr>
+        <h2>Save Member</h2>
+        <form action="#" th:action="@{/saveBackMember}" th:object="${member}" method="POST">
+        	
+            <input type="text" th:field="*{mobile}" placeholder="Member mobile" class="form-control mb-4 col-4">
+
+            <input type="text" th:field="*{name}" placeholder="Member Name" class="form-control mb-4 col-4">
+
+            <input type="text" th:field="*{email}" placeholder="Member Email" class="form-control mb-4 col-4">
+
+            <input type="text" th:field="*{password}" placeholder="Member Password" class="form-control mb-4 col-4">
+
+            <button type="submit" class="btn btn-info col-2"> Save Member</button>
+        </form>
+
+        <hr>
+		<!-- 
+		<a th:href="@{/memberList}"> Back to Member List</a>
+		 -->
+    </div>
+</body>
+
+</html>

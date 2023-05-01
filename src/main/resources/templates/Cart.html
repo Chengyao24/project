@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cart</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container my-2">
+		<h1>Cart List</h1>
+
+		<a th:href="@{/preorder}" class="btn btn-primary btn-sm mb-3">
+			Return Shop </a>
+
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>Product Name</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Total</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cart : ${listCarts}">
+					<td th:text="${cart.productName}"></td>
+					<td th:text="${cart.price}"></td>
+					<td th:text="${cart.quantity}"></td>
+					<td th:text="${cart.price*cart.quantity}"
+						th:if="${cart.price != null and cart.quantity != null}"></td>
+					<td><a th:href="@{/deleteCart/{Id}(Id=${cart.Id})}"
+						class="btn btn-primary">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<form action="#" th:action="@{/cartpay/Save}" th:object="${data}"
+			method="POST">
+			<div class="row">
+				<div class="col-8"></div>
+
+				<div class="col-4">
+					<div class=" mb-3 row">
+						<label class="col-3 col-form-label">付款方式</label>
+						<div class="col-9">
+							<select th:field="*{type}" class="form-control"
+								required="required">
+								<!-- 								<option th:value="'1'" th:text="綠界"></option> -->
+								<option th:value="'0'" th:text="現金"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-end">
+				<div class="col-3 text-right font-weight-bold">
+					Total: <span th:text="${totalPrice}"></span>
+				</div>
+				<div class="col-3">
+					<button class="btn btn-primary btn-sm mb-3">訂單送出，確定結帳</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

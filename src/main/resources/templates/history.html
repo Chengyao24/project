@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>OrderList</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="css/style3.css">
+</head>
+
+<body>
+	<!--  
+	<div class="container my-2">
+		<h1>訂單</h1>
+
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>訂單ID</th>
+					<th>成立時間</th>
+					<th>訂單明細</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="data : ${data}">
+					<td th:text="${data.orderId}"></td>
+					<td th:text="${data.createDate}"></td>
+					<td th:text="${data.orderDetail}"></td>
+					<td><a class="btn btn-primary">修改</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	-->
+	<div class="container my-2" style="height:80px;background-color:#f2f2f2">
+		<h1>訂單明細</h1>
+	</div>
+	<div class="container my-2" th:each="data : ${data}">
+		<div class="row" style="height: 40px;border-top: 1px solid rgb(171, 171, 171); margin-top:30px;">
+				<div class="col-md-3">訂單ID：<span th:text="${data.orderId}"></span></div>
+				<div class="col-md-3">成立時間：<span th:text="${data.createDate}"></span></div>
+				<div class="col-md-3">出貨狀態：<span th:text="${data.status}"></span></div>
+				<div class="col-md-3">總金額：<span th:text="${data.paymoney}"></span></div>
+		</div>
+		<div class="row" th:each="data2 : ${data.orderDetail}" style="height: 40px;border-top: 1px solid rgb(171, 171, 171);">
+			<div class="col-md-3">
+				產品編號：<span th:text="${data2.product.productId}"></span>
+				數量：<span th:text="${data2.quantity}"></span>
+			</div>
+			<div class="col-md-3">品名：<span th:text="${data2.productName}"></span></div>
+			<div class="col-md-3">單價：<span th:text="${data2.price}"></span></div>
+			<div class="col-md-3" >總價：<span th:text="${data2.total}"></span></div>
+		</div>
+	</div>
+</body>
+
+
+</html>

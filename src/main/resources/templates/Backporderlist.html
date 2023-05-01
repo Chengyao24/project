@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>訂單管理</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--使用bootstrap前端模組管理，必填這4句-->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 450px
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f2f2f2;
+	height: 100%;
+}
+
+.container-fluid {
+	padding-bottom: 30px; /*避免文字超出瀏覽器時，內容區塊不會和footer打架*/
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #75A3BF;
+	color: white;
+	height: 30px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+</style>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+		style="background-color: #e3f2fd;">
+		<a class="navbar-brand" href="#">Fresh</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto" th:each="admin : ${admins}">
+				<!-- $是抓後端addtribute前面那個有""內的變數，因次兩個變數名稱要一模一樣 -->
+				<li class="nav-item active"><a class="nav-link text-primary"
+					href="/backporder">訂單管理 <span class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link text-primary"
+					href="/backmember">會員管理</a></li>
+				<li class="nav-item"><a class="nav-link text-primary"
+					href="/backproduct">商品管理</a></li>
+				<li class="nav-item"><a class="nav-link text-primary"
+					th:if="${admin.role} == 'manager'" href="/backadmin">員工管理</a></li>
+			</ul>
+			<form class="form-inline d-flex" action="#"
+				th:action="@{/adminlogin}" th:object="${admin}" method="GET">
+				<button class="btn btn-outline-primary" href="/logout">登出</button>
+			</form>
+		</div>
+	</nav>
+
+	<div class="container-fluid text-center">
+		<div class="container-fluid">
+			<h1>訂單管理</h1>
+
+			<nav
+				class="d-grid gap-2 d-md-flex justify-content-md-end navbar navbar-expand-sm bg-secondary navbar-dark">
+				<form class="form-inline" action="/searchBackPorder">
+					<!-- <a th:href="@{/showBackPorderForUpdate}" class="btn btn-primary mr-sm-5 text-white"> Add Order </a> -->
+					<a th:href="@{/backporder}" class="btn btn-info mr-sm-2 text-white">
+						Show All </a> <input class="form-control mr-sm-2" type="text"
+						name="keyword" th:value="${keyword}"
+						placeholder="Search orderID & status">
+					<button class="btn btn-success" type="submit">Search</button>
+				</form>
+			</nav>
+
+			<div id="msg"></div>
+
+			<table border="1" class="table table-striped table-responsive-md">
+				<thead>
+					<tr>
+						<th>Order Id</th>
+						<th>Mobile</th>
+						<th>Name</th>
+						<th>Status</th>
+						<th>CreateDate</th>
+						<th>UpdateDate</th>
+						<th>Serial Number</th>
+						<th>Payment Type</th>
+						<th>Paymoney</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="porder : ${listPorders}">
+						<td th:text="${porder.orderId}"></td>
+						<td th:text="${porder.member.mobile}"></td>
+						<td th:text="${porder.member.Name}"></td>
+						<td th:text="${porder.status}"></td>
+						<td th:text="${porder.createDate}"></td>
+						<td th:text="${porder.updateDate}"></td>
+						<td th:text="${porder.sn}"></td>
+						<td th:text="${porder.type}"></td>
+						<td th:text="${porder.paymoney}"></td>
+						<td><a
+							th:href="@{/showBackPorderForUpdate/{id}(id=${porder.orderId})}"
+							class="btn btn-warning">Update</a> <a
+							th:href="@{/deletebackporder/{id}(id=${porder.orderId})}"
+							class="btn btn-secondary text-white">Delete</a></td>
+					</tr>
+				</tbody>
+				<!--
+            </table>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#">First</a>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item active">
+                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                      </li>
+                </ul>
+            </nav>
+            -->
+				</div>
+				</div>
+				</div>
+
+				<footer class="container-fluid text-center fixed-bottom">
+					<p>Fresh, Inc 2023</p>
+				</footer>
+
+				<script>
+	
+</script>
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>後台首頁</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--使用bootstrap前端模組管理，必填這4句-->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 100%;
+}
+
+.col-sm-9 {
+	background-image: url(img/Alishan_tea_field.jpg);
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: left bottom;
+	color: white;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f2f2f2;
+	height: 100%;
+}
+
+.container-fluid {
+	padding-bottom: 30px; /*避免文字超出瀏覽器時，內容區塊不會和footer打架*/
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #75A3BF;
+	color: white;
+	height: 30px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+
+input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+button {
+	background-color: #04AA6D;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+button:hover {
+	opacity: 0.8;
+}
+
+.cancelbtn {
+	width: auto;
+	padding: 10px 18px;
+	background-color: #f44336;
+}
+
+.imgcontainer {
+	text-align: center;
+	margin: 24px 0 12px 0;
+}
+
+img.avatar {
+	width: 40%;
+	border-radius: 50%;
+}
+
+.container {
+	padding: 16px;
+}
+
+span.psw {
+	/*float: right;*/
+	padding-top: 16px;
+}
+</style>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+		style="background-color: #e3f2fd;">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Fresh</a>
+		</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid text-center">
+		<div class="row content">
+			<div class="col-sm-3 sidenav">
+				<form action="#" th:action="@{/adminlogin}" th:object="${admin}"
+					method="POST">
+					<div class="imgcontainer">
+						<img src="img/avatar_2x.png" alt="Avatar" class="avatar">
+					</div>
+
+					<div class="container">
+						<label for="code"><b>帳號</b></label> <input type="text"
+							placeholder="Enter Username" id="code" name="code"> <label
+							for="psw"><b>密碼</b></label> <input type="password"
+							placeholder="Enter Password" id="psw" name="psw">
+						<button class="btn btn-success" type="submit">登入</button>
+						<input type="hidden" id="errorMessage" name="errorMessage"
+							th:value="${errorMessage}" /> <input type="hidden"
+							id="successMessage" name="successMessage"
+							th:value="${successMessage}" />
+						<!--  
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> 記住帳號密碼
+                        </label>
+                        -->
+					</div>
+
+					<div class="container" style="background-color: #f1f1f1">
+						<!--
+                        	<button type="button" class="btn btn-secondary text-white">取消</button>
+                          <span class="psw">忘記 <a href="#">密碼?</a></span>
+                         -->
+					</div>
+				</form>
+				<p class="text-danger" th:text="${errorMessage}"></p>
+			</div>
+			<div class="col-sm-9 text-left">
+				<div class="container">
+					<h1>Welcome</h1>
+					<h3>巨匠茶坊 管理後台</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="container-fluid text-center fixed-bottom">
+		<p>Fresh, Inc 2023</p>
+	</footer>
+
+	<script type="text/javascript">
+        var errorMessage = document.getElementById("errorMessage").value;
+        var successMessage = document.getElementById("successMessage").value;
+        if (successMessage != "") {
+            alert(successMessage);
+        }
+    </script>
+</body>
+</html>
